@@ -1,3 +1,4 @@
+import { ShirtSVG } from "@/components/FootballFixture/shirt";
 import { useGetRequest } from "@/hooks/useGetRequest";
 import { createFileRoute } from "@tanstack/react-router";
 import { AxiosHeaders } from "axios";
@@ -27,21 +28,48 @@ function footballFixture() {
 
   if (error)
     return <div className="alert">Error loading fixture: {error.message}</div>;
+
   if (isPending) return <div className="loading">Loading...</div>;
 
   const fixtureData = data.response[0];
   const { teams, league, score, fixture, events, lineups, statistics } =
     fixtureData;
 
+  console.log("fixture data: ", fixtureData);
+
+  const newDate = new Date(fixture.date).toLocaleString();
+
+  const positionOfPlayer = (position: string) => {
+    if (position === "D") {
+      return "Defender";
+    }
+    if (position === "G") {
+      return "Goalkeeper";
+    }
+    if (position === "M") {
+      return "Midfielder";
+    }
+    if (position === "F") {
+      return "Forward";
+    }
+  };
+
   return (
     <>
       {/* Match Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <h1 className="text-2xl font-bold">{id}</h1>
-        <div className="text-sm text-gray-600">
-          <p>Date: {fixture.date}</p>
-          <p>Venue: {fixture.venue.name}</p>
-          <p>Referee: {fixture.referee}</p>
+        <div className="text-sm">
+          <p>
+            <b>Date: </b> <span className="text-gray-600">{newDate}</span>
+          </p>
+          <p>
+            <b>Venue: </b>
+            <span className="text-gray-600">{fixture.venue.name}</span>
+          </p>
+          <p>
+            <b>Referee: </b>
+            <span className="text-gray-600">{fixture.referee}</span>
+          </p>
         </div>
       </div>
 
@@ -51,10 +79,22 @@ function footballFixture() {
         <div className="col-span-1">
           <h2 className="text-xl font-bold mb-4">Match Details</h2>
           <div className="space-y-2">
-            <p className="font-medium">Status: {fixture.status.long}</p>
-            <p>League: {league.name}</p>
-            <p>Season: {league.season}</p>
-            <p>Round: {league.round}</p>
+            <p className="font-medium">
+              <b>Status:</b>{" "}
+              <span className="text-gray-600">{fixture.status.long}</span>
+            </p>
+            <p>
+              <b>League:</b>{" "}
+              <span className="text-gray-600">{league.name}</span>
+            </p>
+            <p>
+              <b>Season:</b>{" "}
+              <span className="text-gray-600">{league.season}</span>
+            </p>
+            <p>
+              <b>Round:</b>{" "}
+              <span className="text-gray-600">{league.round}</span>
+            </p>
           </div>
         </div>
 
@@ -73,19 +113,6 @@ function footballFixture() {
             </div>
           </div>
         </div>
-
-        {/* Standings */}
-        <div className="col-span-1">
-          <h2 className="text-xl font-bold mb-4">Standings</h2>
-          <div className="space-y-2">
-            <p>
-              {teams.home.name} - {league.position}th
-            </p>
-            <p>
-              {teams.away.name} - {league.position}th
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* Lineups */}
@@ -97,14 +124,28 @@ function footballFixture() {
             <h3 className="text-lg font-semibold">
               {teams.home.name} Starting XI
             </h3>
-            {lineups[0].startXI.map((player) => (
-              <div className="flex items-center justify-between p-2 bg-gray-100 rounded">
-                <div>
-                  <span className="font-medium">{player.number} </span>
-                  <span>{player.pos}</span> - {player.name}
+            {lineups[0].startXI.map((playerObj: { player: any }) => {
+              const player = playerObj.player;
+              return (
+                <div
+                  key={player.id}
+                  className="flex items-center justify-between p-2 bg-gray-300 rounded"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">
+                      <ShirtSVG
+                        width={40}
+                        height={40}
+                        playersNumber={player.number.toString()}
+                        colour={`#${lineups[0].team.colors.player.primary}`}
+                        alt={player.name}
+                      />
+                    </span>
+                    <span>{positionOfPlayer(player.pos)}</span> - {player.name}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Away Team Lineup */}
@@ -112,14 +153,28 @@ function footballFixture() {
             <h3 className="text-lg font-semibold">
               {teams.away.name} Starting XI
             </h3>
-            {lineups[1].startXI.map((player) => (
-              <div className="flex items-center justify-between p-2 bg-gray-100 rounded">
-                <div>
-                  <span className="font-medium">{player.number} </span>
-                  <span>{player.pos}</span> - {player.name}
+            {lineups[1].startXI.map((playerObj: { player: any }) => {
+              const player = playerObj.player;
+              return (
+                <div
+                  key={player.id}
+                  className="flex items-center justify-between p-2 bg-gray-300 rounded"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">
+                      <ShirtSVG
+                        width={40}
+                        height={40}
+                        playersNumber={player.number.toString()}
+                        colour={`#${lineups[1].team.colors.player.primary}`}
+                        alt={player.name}
+                      />
+                    </span>
+                    <span>{positionOfPlayer(player.pos)}</span>- {player.name}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -129,7 +184,7 @@ function footballFixture() {
         <h2 className="text-xl font-bold mb-4">Event Timeline</h2>
         <div className="overflow-x-auto">
           <div className="flex space-x-4">
-            {events.map((event) => (
+            {events.map((event: any) => (
               <div className="flex flex-col items-center p-2 bg-gray-100 rounded">
                 <span className="text-xs text-gray-500">
                   {event.time.elapsed}'
@@ -156,7 +211,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[0].statistics.find(
-                    (s) => s.type === "Ball Possession"
+                    (stats: any) => stats.type === "Ball Possession"
                   )?.value
                 }
               </span>
@@ -166,7 +221,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[0].statistics.find(
-                    (s) => s.type === "Shots on Goal"
+                    (stats: any) => stats.type === "Shots on Goal"
                   )?.value
                 }
               </span>
@@ -176,7 +231,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[0].statistics.find(
-                    (s) => s.type === "Corner Kicks"
+                    (stats: any) => stats.type === "Corner Kicks"
                   )?.value
                 }
               </span>
@@ -186,7 +241,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[0].statistics.find(
-                    (s) => s.type === "Yellow Cards"
+                    (stats: any) => stats.type === "Yellow Cards"
                   )?.value
                 }
               </span>
@@ -204,7 +259,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[1].statistics.find(
-                    (s) => s.type === "Ball Possession"
+                    (stats: any) => stats.type === "Ball Possession"
                   )?.value
                 }
               </span>
@@ -214,7 +269,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[1].statistics.find(
-                    (s) => s.type === "Shots on Goal"
+                    (stats: any) => stats.type === "Shots on Goal"
                   )?.value
                 }
               </span>
@@ -224,7 +279,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[1].statistics.find(
-                    (s) => s.type === "Corner Kicks"
+                    (stats: any) => stats.type === "Corner Kicks"
                   )?.value
                 }
               </span>
@@ -234,7 +289,7 @@ function footballFixture() {
               <span>
                 {
                   statistics[1].statistics.find(
-                    (s) => s.type === "Yellow Cards"
+                    (stats: any) => stats.type === "Yellow Cards"
                   )?.value
                 }
               </span>
