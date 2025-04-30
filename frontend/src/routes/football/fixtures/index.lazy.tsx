@@ -47,7 +47,7 @@ function FootballComponent() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="mb-6 grid grid-cols-3 gap-4">
         {footballFixtures?.map((fixture: FootballFixtures) => (
           <FootballFixtureCards
             key={`key-${fixture.fixture.id}`}

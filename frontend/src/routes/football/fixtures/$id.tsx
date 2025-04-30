@@ -55,8 +55,8 @@ function footballFixture() {
 
     return (
       <>
-        <div className="flex flex-row items-center gap-2 text-2xl font-bold w-full">
-          <div className="flex items-center w-full justify-end">
+        <div className="flex w-full flex-row items-center gap-2 text-sm font-bold sm:text-base md:text-2xl">
+          <div className="flex w-full items-center justify-end">
             <div className="text-right">{teams.home.name}</div>
             <div
               className={`ml-2 ${
@@ -70,8 +70,8 @@ function footballFixture() {
               {score.fulltime.home}
             </div>
           </div>
-          <div className="flex items-center mx-2">-</div>
-          <div className="flex items-center w-full">
+          <div className="mx-2 flex items-center">-</div>
+          <div className="flex w-full items-center">
             <div
               className={`mr-2 ${
                 homeIsWinner
@@ -93,12 +93,14 @@ function footballFixture() {
   return (
     <>
       {/* Main Event Details */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Team Info */}
         <div className="col-span-1">
-          <div className="flex flex-col mb-8 gap-4">
-            <h2 className="text-xl font-bold">Match Details</h2>
-            <div className="text-sm">
+          <div className="mb-8 flex flex-col gap-4">
+            <h2 className="text-lg font-bold sm:text-base md:text-2xl">
+              Match Details
+            </h2>
+            <div className="text-sm sm:text-base md:text-lg">
               <p>
                 <b>Status: </b>
                 <span className="text-gray-600">{fixture.status.long}</span>
@@ -121,11 +123,13 @@ function footballFixture() {
 
         {/* Scoreline */}
         <div className="col-span-1">
-          <div className="flex flex-col mb-8 gap-4">
-            <h2 className="text-xl font-bold text-center">Scoreline</h2>
+          <div className="mb-8 flex flex-col gap-4">
+            <h2 className="text-center text-lg font-bold sm:text-base md:text-2xl">
+              Scoreline
+            </h2>
             <div className="flex flex-col items-center gap-2">
               {whoWon(score.fulltime.home, score.fulltime.away)}
-              <div className="text-gray-600 items-center gap-2 text-sm">
+              <div className="items-center gap-2 text-xs text-gray-600 sm:text-sm">
                 HT: {score.halftime.home} - {score.halftime.away}
               </div>
             </div>
@@ -134,8 +138,8 @@ function footballFixture() {
 
         {/* Match Header */}
         <div className="col-span-1">
-          <div className="flex flex-col mb-8 gap-4">
-            <div className="text-sm text-right">
+          <div className="mb-8 flex flex-col gap-4">
+            <div className="text-right text-sm sm:text-base md:text-lg">
               <p>
                 <b>Date: </b> <span className="text-gray-600">{newDate}</span>
               </p>
@@ -154,7 +158,7 @@ function footballFixture() {
 
       {/* Lineups */}
       <div className="mb-8">
-        <h2 className="text-xl font-bold mb-4">Lineups</h2>
+        <h2 className="mb-4 text-xl font-bold">Lineups</h2>
         <div className="grid grid-cols-2 gap-6">
           {/* Home Team Lineup */}
           <div className="space-y-4">
@@ -166,7 +170,7 @@ function footballFixture() {
               return (
                 <div
                   key={player.id}
-                  className="flex items-center justify-between p-2 bg-gray-300 rounded"
+                  className="flex items-center justify-between rounded bg-gray-300 p-2"
                 >
                   <div className="flex items-center gap-2">
                     <span className="font-medium">
@@ -196,7 +200,7 @@ function footballFixture() {
               return (
                 <div
                   key={player.id}
-                  className="flex items-center justify-between p-2 bg-gray-300 rounded"
+                  className="flex items-center justify-between rounded bg-gray-300 p-2"
                 >
                   <div className="flex items-center gap-2">
                     <span className="font-medium">
@@ -220,11 +224,11 @@ function footballFixture() {
 
       {/* Events Timeline */}
       <div className="mb-8">
-        <h2 className="text-xl font-bold mb-4">Event Timeline</h2>
+        <h2 className="mb-4 text-xl font-bold">Event Timeline</h2>
         <div className="overflow-x-auto">
           <div className="flex space-x-4">
             {events.map((event: any) => (
-              <div className="flex flex-col items-center p-2 bg-gray-100 rounded">
+              <div className="flex flex-col items-center rounded bg-gray-100 p-2">
                 <span className="text-xs text-gray-500">
                   {event.time.elapsed}'
                 </span>
@@ -239,7 +243,7 @@ function footballFixture() {
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">
             {teams.home.name} Statistics

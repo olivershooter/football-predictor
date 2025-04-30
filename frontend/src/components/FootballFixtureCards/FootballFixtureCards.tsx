@@ -33,8 +33,8 @@ export const FootballFixtureCards = ({
     <Link to="/football/fixtures/$id" params={{ id: params.toString() }}>
       <Card key={id}>
         <CardHeader>
-          <CardTitle className="flex justify-between items-center">
-            <div className="flex flex-col items-center text-center w-1/3">
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex w-1/3 flex-col items-center text-center">
               <img
                 src={homeTeamLogo}
                 alt={`${homeTeamName} logo`}
@@ -48,7 +48,7 @@ export const FootballFixtureCards = ({
 
             <span className="mx-4 text-lg font-bold">vs</span>
 
-            <div className="flex flex-col items-center text-center w-1/3">
+            <div className="flex w-1/3 flex-col items-center text-center">
               <img
                 src={awayTeamLogo}
                 alt={`${awayTeamName} logo`}
@@ -60,7 +60,7 @@ export const FootballFixtureCards = ({
               </span>
             </div>
           </CardTitle>
-          <CardDescription className="text-center mt-2 text-xs">
+          <CardDescription className="mt-2 text-center text-xs">
             {new Date(date).toLocaleDateString("en-GB", {
               weekday: "short",
               year: "numeric",
