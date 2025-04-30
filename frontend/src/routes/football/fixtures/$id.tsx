@@ -40,70 +40,54 @@ function footballFixture() {
   const newDate = new Date(fixture.date).toLocaleString();
 
   const positionOfPlayer = (position: string) => {
-    if (position === "D") {
-      return "Defender";
-    }
-    if (position === "G") {
-      return "Goalkeeper";
-    }
-    if (position === "M") {
-      return "Midfielder";
-    }
-    if (position === "F") {
-      return "Forward";
-    }
+    const positions: Record<string, string> = {
+      D: "Defender",
+      G: "Goalkeeper",
+      M: "Midfielder",
+      F: "Forward"
+    };
+    return positions[position] || "Unknown position";
   };
 
-  const whoWon = (homeTeamScore: number, awayTeamScore: number) => {
-    if (homeTeamScore > awayTeamScore) {
-      return (
-        <>
-          <div className="flex flex-row items-center gap-2 text-2xl font-bold">
-            <div className="flex items-center">
-              <div className="text-right">{teams.home.name}</div>
-              <div className="ml-2 text-lime-700">{score.fulltime.home}</div>
-            </div>
-            <div className="flex items-center mx-2">-</div>
-            <div className="flex items-center">
-              <div className="mr-2 text-red-700">{score.fulltime.away}</div>
-              <div>{teams.away.name}</div>
-            </div>
-          </div>
-        </>
-      );
-    } else if (homeTeamScore < awayTeamScore) {
-      return (
-        <>
-          <div className="flex items-center justify-center text-2xl font-bold">
-            <div className="flex items-center">
-              <div className="text-right text-red-700">{teams.home.name}</div>
-              <div className="ml-2 text-red-700">{score.fulltime.home}</div>
-            </div>
-            <div className="flex items-center mx-2">-</div>
-            <div className="flex items-center">
-              <div className="mr-2 text-lime-700">{score.fulltime.away}</div>
-              <div>{teams.away.name}</div>
+  const whoWon = (homeTeamScore: string, awayTeamScore: string) => {
+    const homeIsWinner = homeTeamScore > awayTeamScore;
+    const tie = homeTeamScore === awayTeamScore;
+
+    return (
+      <>
+        <div className="flex flex-row items-center gap-2 text-2xl font-bold w-full">
+          <div className="flex items-center w-full justify-end">
+            <div className="text-right">{teams.home.name}</div>
+            <div
+              className={`ml-2 ${
+                homeIsWinner
+                  ? "text-lime-700"
+                  : tie
+                    ? "text-slate-700"
+                    : "text-red-700"
+              }`}
+            >
+              {score.fulltime.home}
             </div>
           </div>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <div className="flex items-center justify-center text-2xl font-bold">
-            <div className="flex items-center">
-              <div className="text-right text-stone-700">{teams.home.name}</div>
-              <div className="ml-2 text-stone-700">{score.fulltime.home}</div>
+          <div className="flex items-center mx-2">-</div>
+          <div className="flex items-center w-full">
+            <div
+              className={`mr-2 ${
+                homeIsWinner
+                  ? "text-red-700"
+                  : tie
+                    ? "text-slate-700"
+                    : "text-lime-700"
+              }`}
+            >
+              {score.fulltime.away}
             </div>
-            <div className="flex items-center mx-2">-</div>
-            <div className="flex items-center">
-              <div className="mr-2 text-stone-700">{score.fulltime.away}</div>
-              <div>{teams.away.name}</div>
-            </div>
+            <div>{teams.away.name}</div>
           </div>
-        </>
-      );
-    }
+        </div>
+      </>
+    );
   };
 
   return (
@@ -139,7 +123,6 @@ function footballFixture() {
         <div className="col-span-1">
           <div className="flex flex-col mb-8 gap-4">
             <h2 className="text-xl font-bold text-center">Scoreline</h2>
-
             <div className="flex flex-col items-center gap-2">
               {whoWon(score.fulltime.home, score.fulltime.away)}
               <div className="text-gray-600 items-center gap-2 text-sm">
