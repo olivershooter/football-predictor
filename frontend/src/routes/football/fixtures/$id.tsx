@@ -1,3 +1,4 @@
+import { getScoreColor } from "@/components/Common/GetScoreColor";
 import { SectionHeader } from "@/components/Common/SectionHeader";
 import { ShirtSVG } from "@/components/FootballFixture/ShirtSVG";
 import { useGetRequest } from "@/hooks/useGetRequest";
@@ -41,15 +42,6 @@ function FootballFixture() {
     G: "Goalkeeper",
     M: "Midfielder",
     F: "Forward"
-  };
-
-  const getScoreColor = (
-    isHome: boolean,
-    isWinner: boolean,
-    isTie: boolean
-  ) => {
-    if (isTie) return "text-slate-700";
-    return isWinner === isHome ? "text-lime-700" : "text-red-700";
   };
 
   const renderScoreline = (homeScore: number, awayScore: number) => {
