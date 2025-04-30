@@ -13,7 +13,7 @@ export const ShirtSVG = ({
   colour,
   alt
 }: ImageProps) => {
-  // Function to calculate luminance of a hex color
+  // Function to calculate luminance of a hex color so depending on the teams shirt colours the players shirt number is visible
   const getLuminance = (hex: string) => {
     const rgb = parseInt(hex.replace("#", ""), 16);
     const r = (rgb >> 16) & 0xff;
@@ -22,10 +22,10 @@ export const ShirtSVG = ({
     return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   };
 
-  // Determine text color based on background luminance
   const luminance = getLuminance(colour);
   const textColor = luminance > 0.5 ? "#000000" : "#FFFFFF";
   const strokeColor = luminance > 0.5 ? "#FFFFFF" : "#000000";
+
   return (
     <svg
       fill={`${colour}`}
@@ -34,8 +34,6 @@ export const ShirtSVG = ({
       viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="background" stroke-width="0"></g>
-      <g id="round" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="name">
         <title>{alt}</title>
         <path d="M256,96c33.08,0,60.71-25.78,64-58,.3-3-3-6-6-6h0a13,13,0,0,0-4.74.9c-.2.08-21.1,8.1-53.26,8.1s-53.1-8-53.26-8.1a16.21,16.21,0,0,0-5.3-.9h-.06A5.69,5.69,0,0,0,192,38C195.35,70.16,223,96,256,96Z"></path>
@@ -43,14 +41,15 @@ export const ShirtSVG = ({
 
         <text
           x="50%"
-          y="70%"
-          font-family="Arial, sans-serif"
-          font-size="220"
-          font-weight="bold"
+          y="60%"
+          fontFamily="Arial, sans-serif"
+          fontSize="200"
+          fontWeight="bold"
           fill={textColor}
-          text-anchor="middle"
           stroke={strokeColor}
-          stroke-width="2"
+          strokeWidth="2"
+          textAnchor="middle"
+          dominantBaseline="middle"
         >
           {playersNumber}
         </text>

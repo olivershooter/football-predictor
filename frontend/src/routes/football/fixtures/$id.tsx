@@ -1,4 +1,4 @@
-import { ShirtSVG } from "@/components/FootballFixture/shirt";
+import { ShirtSVG } from "@/components/FootballFixture/ShirtSVG";
 import { useGetRequest } from "@/hooks/useGetRequest";
 import { createFileRoute } from "@tanstack/react-router";
 import { AxiosHeaders } from "axios";
@@ -54,62 +54,116 @@ function footballFixture() {
     }
   };
 
+  const whoWon = (homeTeamScore: number, awayTeamScore: number) => {
+    if (homeTeamScore > awayTeamScore) {
+      return (
+        <>
+          <div className="flex flex-row items-center gap-2 text-2xl font-bold">
+            <div className="flex items-center">
+              <div className="text-right">{teams.home.name}</div>
+              <div className="ml-2 text-lime-700">{score.fulltime.home}</div>
+            </div>
+            <div className="flex items-center mx-2">-</div>
+            <div className="flex items-center">
+              <div className="mr-2 text-red-700">{score.fulltime.away}</div>
+              <div>{teams.away.name}</div>
+            </div>
+          </div>
+        </>
+      );
+    } else if (homeTeamScore < awayTeamScore) {
+      return (
+        <>
+          <div className="flex items-center justify-center text-2xl font-bold">
+            <div className="flex items-center">
+              <div className="text-right text-red-700">{teams.home.name}</div>
+              <div className="ml-2 text-red-700">{score.fulltime.home}</div>
+            </div>
+            <div className="flex items-center mx-2">-</div>
+            <div className="flex items-center">
+              <div className="mr-2 text-lime-700">{score.fulltime.away}</div>
+              <div>{teams.away.name}</div>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className="flex items-center justify-center text-2xl font-bold">
+            <div className="flex items-center">
+              <div className="text-right text-stone-700">{teams.home.name}</div>
+              <div className="ml-2 text-stone-700">{score.fulltime.home}</div>
+            </div>
+            <div className="flex items-center mx-2">-</div>
+            <div className="flex items-center">
+              <div className="mr-2 text-stone-700">{score.fulltime.away}</div>
+              <div>{teams.away.name}</div>
+            </div>
+          </div>
+        </>
+      );
+    }
+  };
+
   return (
     <>
-      {/* Match Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-        <div className="text-sm">
-          <p>
-            <b>Date: </b> <span className="text-gray-600">{newDate}</span>
-          </p>
-          <p>
-            <b>Venue: </b>
-            <span className="text-gray-600">{fixture.venue.name}</span>
-          </p>
-          <p>
-            <b>Referee: </b>
-            <span className="text-gray-600">{fixture.referee}</span>
-          </p>
-        </div>
-      </div>
-
       {/* Main Event Details */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Team Info */}
         <div className="col-span-1">
-          <h2 className="text-xl font-bold mb-4">Match Details</h2>
-          <div className="space-y-2">
-            <p className="font-medium">
-              <b>Status:</b>{" "}
-              <span className="text-gray-600">{fixture.status.long}</span>
-            </p>
-            <p>
-              <b>League:</b>{" "}
-              <span className="text-gray-600">{league.name}</span>
-            </p>
-            <p>
-              <b>Season:</b>{" "}
-              <span className="text-gray-600">{league.season}</span>
-            </p>
-            <p>
-              <b>Round:</b>{" "}
-              <span className="text-gray-600">{league.round}</span>
-            </p>
+          <div className="flex flex-col mb-8 gap-4">
+            <h2 className="text-xl font-bold">Match Details</h2>
+            <div className="text-sm">
+              <p>
+                <b>Status: </b>
+                <span className="text-gray-600">{fixture.status.long}</span>
+              </p>
+              <p>
+                <b>League: </b>
+                <span className="text-gray-600">{league.name}</span>
+              </p>
+              <p>
+                <b>Season: </b>
+                <span className="text-gray-600">{league.season}</span>
+              </p>
+              <p>
+                <b>Round: </b>
+                <span className="text-gray-600">{league.round}</span>
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Scoreline */}
         <div className="col-span-1">
-          <h2 className="text-xl font-bold mb-4">Scoreline</h2>
-          <div className="text-center">
-            <div className="flex flex-col">
-              <div className="text-2xl font-bold">
-                {teams.home.name} {score.fulltime.home} - {score.fulltime.away}{" "}
-                {teams.away.name}
-              </div>
-              <div className="text-sm text-gray-600">
+          <div className="flex flex-col mb-8 gap-4">
+            <h2 className="text-xl font-bold text-center">Scoreline</h2>
+
+            <div className="flex flex-col items-center gap-2">
+              {whoWon(score.fulltime.home, score.fulltime.away)}
+              <div className="text-gray-600 items-center gap-2 text-sm">
                 HT: {score.halftime.home} - {score.halftime.away}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Match Header */}
+        <div className="col-span-1">
+          <div className="flex flex-col mb-8 gap-4">
+            <div className="text-sm text-right">
+              <p>
+                <b>Date: </b> <span className="text-gray-600">{newDate}</span>
+              </p>
+              <p>
+                <b>Venue: </b>
+                <span className="text-gray-600">{fixture.venue.name}</span>
+              </p>
+              <p>
+                <b>Referee: </b>
+                <span className="text-gray-600">{fixture.referee}</span>
+              </p>
             </div>
           </div>
         </div>
@@ -141,8 +195,9 @@ function footballFixture() {
                         alt={player.name}
                       />
                     </span>
-                    <span>{positionOfPlayer(player.pos)}</span> - {player.name}
+                    {player.name}
                   </div>
+                  <span>{positionOfPlayer(player.pos)}</span>
                 </div>
               );
             })}
@@ -170,8 +225,9 @@ function footballFixture() {
                         alt={player.name}
                       />
                     </span>
-                    <span>{positionOfPlayer(player.pos)}</span>- {player.name}
+                    {player.name}
                   </div>
+                  <span>{positionOfPlayer(player.pos)}</span>
                 </div>
               );
             })}
