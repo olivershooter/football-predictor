@@ -1,9 +1,12 @@
 import { getScoreColor } from "@/components/Common/GetScoreColor";
+import { HorizontalLine } from "@/components/Common/HorizontalLine";
 import { SectionHeader } from "@/components/Common/SectionHeader";
 import { ShirtSVG } from "@/components/FootballFixture/ShirtSVG";
 import { useGetRequest } from "@/hooks/useGetRequest";
 import { createFileRoute } from "@tanstack/react-router";
 import { AxiosHeaders } from "axios";
+import { useState, useEffect } from "react";
+import ConfettiExplosion from "react-confetti-explosion";
 
 const API_OPTIONS = {
   url: "/api/football/fixtures?id=",
@@ -28,9 +31,13 @@ function FootballFixture() {
     gcTime: 1000 * 60 * 60 * 24 * 7 // 1 week caching
   });
 
-  if (error)
+  if (error) {
     return <div className="alert">Error loading fixture: {error.message}</div>;
-  if (isPending) return <div className="loading">Loading...</div>;
+  }
+
+  if (isPending) {
+    return <div className="loading">Loading...</div>;
+  }
 
   const fixtureData = data.response[0];
   const { teams, league, score, fixture, events, lineups, statistics } =
@@ -51,20 +58,34 @@ function FootballFixture() {
     return (
       <div className="flex w-full flex-row items-center justify-center gap-2 text-sm font-bold sm:text-base md:text-2xl">
         <div className="flex w-full items-center justify-end">
-          <div className="text-right">{teams.home.name}</div>
-          <div className={`ml-2 ${getScoreColor(true, isHomeWinner, isTie)}`}>
+          <div className="mr-2 text-right">{teams.home.name}</div>
+          <div className={`${getScoreColor(true, isHomeWinner, isTie)}`}>
             {homeScore}
           </div>
         </div>
         <div className="mx-2">-</div>
         <div className="flex w-full items-center">
-          <div className={`mr-2 ${getScoreColor(false, isHomeWinner, isTie)}`}>
+          <div className={`${getScoreColor(false, isHomeWinner, isTie)}`}>
             {awayScore}
           </div>
-          <div>{teams.away.name}</div>
+          <div className="ml-2">{teams.away.name}</div>
         </div>
       </div>
     );
+  };
+
+  const renderRound = () => {
+    const roundCheck = league.round;
+
+    if (!roundCheck.includes("Regular Season")) {
+      return (
+        <p>
+          <b>Round:</b> <span className="text-gray-600">{league.round}</span>
+        </p>
+      );
+    } else {
+      return null;
+    }
   };
 
   const renderLineup = (teamIndex: number, alignment: "left" | "right") => {
@@ -137,11 +158,9 @@ function FootballFixture() {
       </div>
 
       {/* Match Details */}
-      <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mb-8 text-center">
         <div>
-          <h2 className="mb-4 text-lg font-bold sm:text-base md:text-2xl">
-            Match Details
-          </h2>
+          <SectionHeader title="Match Details" svgName="whistle" />
           <div className="text-sm sm:text-base md:text-lg">
             <p>
               <b>Status:</b>{" "}
@@ -155,17 +174,11 @@ function FootballFixture() {
               <b>Season:</b>{" "}
               <span className="text-gray-600">{league.season}</span>
             </p>
-            <p>
-              <b>Round:</b>{" "}
-              <span className="text-gray-600">{league.round}</span>
-            </p>
+            {renderRound()}
           </div>
         </div>
 
         <div>
-          <h2 className="mb-4 text-lg font-bold sm:text-base md:text-2xl">
-            Match Header
-          </h2>
           <div className="text-sm sm:text-base md:text-lg">
             <p>
               <b>Date:</b> <span className="text-gray-600">{newDate}</span>
@@ -184,7 +197,8 @@ function FootballFixture() {
 
       {/* Lineups */}
       <div className="mb-12">
-        <SectionHeader title="Lineups" />
+        <SectionHeader title="Lineups" svgName="lineup" />
+
         <div className="grid grid-cols-2 gap-6">
           {renderLineup(0, "left")}
           {renderLineup(1, "right")}
@@ -193,7 +207,7 @@ function FootballFixture() {
 
       {/* Events Timeline */}
       <div className="mb-8 mt-12">
-        <SectionHeader title="Event Timeline" />
+        <SectionHeader title="Event Timeline" svgName="timeline" />
         <div className="overflow-x-auto">
           <div className="flex space-x-4">
             {events.map((event: any) => (
@@ -216,7 +230,7 @@ function FootballFixture() {
 
       {/* Statistics */}
       <div className="mb-16">
-        <SectionHeader title="Statistics" />
+        <SectionHeader title="Statistics" svgName="stats" />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {renderStatistics(0, teams.home.name)}
           {renderStatistics(1, teams.away.name)}
