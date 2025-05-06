@@ -50,8 +50,6 @@ function FootballFixture() {
     F: "Forward"
   };
 
-  console.log("Events: ", events);
-
   const renderScoreline = (homeScore: number, awayScore: number) => {
     const isTie = homeScore === awayScore;
     const isHomeWinner = homeScore > awayScore;

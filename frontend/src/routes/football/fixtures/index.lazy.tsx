@@ -26,8 +26,6 @@ function FootballComponent() {
     gcTime: 1000 * 60 * 24
   });
 
-  console.log("data: ", data);
-
   if (error) {
     return <div>Error loading fixtures: {error?.message}</div>;
   }
@@ -39,11 +37,6 @@ function FootballComponent() {
   const footballFixtures = data?.response
     ? data.response
     : "Something went wrong with the footballFixtures call";
-
-  console.log(
-    "footballFixtures: ",
-    footballFixtures ? footballFixtures[0] : "no"
-  );
 
   return (
     <>
