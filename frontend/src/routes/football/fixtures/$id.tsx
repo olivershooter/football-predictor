@@ -1,12 +1,9 @@
 import { getScoreColor } from "@/components/Common/GetScoreColor";
-import { HorizontalLine } from "@/components/Common/HorizontalLine";
 import { SectionHeader } from "@/components/Common/SectionHeader";
 import { ShirtSVG } from "@/components/FootballFixture/ShirtSVG";
 import { useGetRequest } from "@/hooks/useGetRequest";
 import { createFileRoute } from "@tanstack/react-router";
 import { AxiosHeaders } from "axios";
-import { useState, useEffect } from "react";
-import ConfettiExplosion from "react-confetti-explosion";
 
 const API_OPTIONS = {
   url: "/api/football/fixtures?id=",
