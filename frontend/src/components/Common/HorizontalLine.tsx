@@ -8,7 +8,7 @@ export const HorizontalLine = ({ svgName }: HorizontalLineProps) => {
       return (
         <div className="inline-flex w-full items-center justify-center">
           <hr className="my-8 h-1 w-64 rounded-sm border-0 bg-gray-200 dark:bg-gray-700" />
-          <div className="absolute left-1/2 -translate-x-1/2 bg-white px-4 dark:bg-gray-900">
+          <div className="absolute left-1/2 -translate-x-1/2 px-4 dark:bg-gray-900">
             <svg
               width="40px"
               height="40px"
@@ -29,7 +29,7 @@ export const HorizontalLine = ({ svgName }: HorizontalLineProps) => {
       return (
         <div className="inline-flex w-full items-center justify-center">
           <hr className="my-8 h-1 w-64 rounded-sm border-0 bg-gray-200 dark:bg-gray-700" />
-          <div className="absolute left-1/2 -translate-x-1/2 bg-white px-4 dark:bg-gray-900">
+          <div className="absolute left-1/2 -translate-x-1/2 px-4 dark:bg-gray-900">
             <svg height="40px" width="40px" viewBox="0 0 512 512">
               <g>
                 <path
@@ -54,7 +54,7 @@ export const HorizontalLine = ({ svgName }: HorizontalLineProps) => {
       return (
         <div className="inline-flex w-full items-center justify-center">
           <hr className="my-2 h-1 w-64 rounded-sm border-0 bg-gray-200 dark:bg-gray-700" />
-          <div className="absolute left-1/2 -translate-x-1/2 bg-white px-4 dark:bg-gray-900">
+          <div className="absolute left-1/2 -translate-x-1/2 px-4 dark:bg-gray-900">
             <svg
               fill="#000000"
               height="40px"
@@ -170,7 +170,7 @@ export const HorizontalLine = ({ svgName }: HorizontalLineProps) => {
       return (
         <div className="inline-flex w-full items-center justify-center">
           <hr className="my-8 h-1 w-64 rounded-sm border-0 bg-gray-200 dark:bg-gray-700" />
-          <div className="absolute left-1/2 -translate-x-1/2 bg-white px-4 dark:bg-gray-900">
+          <div className="absolute left-1/2 -translate-x-1/2 px-4 dark:bg-gray-900">
             <svg
               fill="#000000"
               width="40px"
@@ -188,7 +188,7 @@ export const HorizontalLine = ({ svgName }: HorizontalLineProps) => {
       return (
         <div className="inline-flex w-full items-center justify-center">
           <hr className="my-8 h-1 w-64 rounded-sm border-0 bg-gray-200 dark:bg-gray-700" />
-          <div className="absolute left-1/2 -translate-x-1/2 bg-white px-4 dark:bg-gray-900">
+          <div className="absolute left-1/2 -translate-x-1/2 px-4 dark:bg-gray-900">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
@@ -210,22 +210,4 @@ export const HorizontalLine = ({ svgName }: HorizontalLineProps) => {
         </div>
       );
   }
-
-  //   //whistle
-
-  //   <div className="inline-flex w-full items-center justify-center">
-  //     <hr className="my-8 h-1 w-64 rounded-sm border-0 bg-gray-200 dark:bg-gray-700" />
-  //     <div className="absolute left-1/2 -translate-x-1/2 bg-white px-4 dark:bg-gray-900">
-  //       <svg
-  //         fill="#000000"
-  //         width="40px"
-  //         height="40px"
-  //         viewBox="0 0 1920 1920"
-  //         xmlns="http://www.w3.org/2000/svg"
-  //       >
-  //         <path d="M746.667 106.667H1173.33V1493.33H746.667V106.667ZM533.333 533.333H106.667V1493.33H533.333V533.333ZM1920 1706.67H0V1824H1920V1706.67ZM1813.33 746.667H1386.67V1493.33H1813.33V746.667Z" />
-  //       </svg>
-  //     </div>
-  //   </div>
-  // );
 };
