@@ -1,5 +1,6 @@
 import { getScoreColor } from "@/components/Common/GetScoreColor";
 import { SectionHeader } from "@/components/Common/SectionHeader";
+import { EventTimeline } from "@/components/FootballFixture/EventTimeline";
 import { ShirtSVG } from "@/components/FootballFixture/ShirtSVG";
 import { useGetRequest } from "@/hooks/useGetRequest";
 import { createFileRoute } from "@tanstack/react-router";
@@ -39,6 +40,7 @@ function FootballFixture() {
   const fixtureData = data.response[0];
   const { teams, league, score, fixture, events, lineups, statistics } =
     fixtureData;
+
   const newDate = new Date(fixture.date).toLocaleString();
 
   const positionMap: Record<string, string> = {
@@ -47,6 +49,8 @@ function FootballFixture() {
     M: "Midfielder",
     F: "Forward"
   };
+
+  console.log("Events: ", events);
 
   const renderScoreline = (homeScore: number, awayScore: number) => {
     const isTie = homeScore === awayScore;
@@ -205,24 +209,7 @@ function FootballFixture() {
       {/* Events Timeline */}
       <div className="mb-8 mt-12">
         <SectionHeader title="Event Timeline" svgName="timeline" />
-        <div className="overflow-x-auto">
-          <div className="flex space-x-4">
-            {events.map((event: any) => (
-              <div
-                key={event.time.elapsed + event.player.id}
-                className="flex flex-col items-center rounded bg-gray-100 p-2"
-              >
-                <span className="text-xs text-gray-500">
-                  {event.time.elapsed}'
-                </span>
-                <span className="font-medium">{event.player.name}</span>
-                <span className="text-sm text-gray-600">
-                  {event.type}: {event.detail}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <EventTimeline events={events} />
       </div>
 
       {/* Statistics */}
