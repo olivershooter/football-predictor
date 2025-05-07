@@ -87,7 +87,10 @@ function FootballFixture() {
     }
   };
 
-  const renderLineup = (teamIndex: number, alignment: "left" | "right") => {
+  const renderLineup = (
+    teamIndex: number,
+    alignment: "left" | "right" | "center"
+  ) => {
     const team = lineups[teamIndex];
     return (
       <div className="space-y-4">
@@ -198,9 +201,13 @@ function FootballFixture() {
       <div className="mb-12">
         <SectionHeader title="Lineups" svgName="lineup" />
 
-        <div className="grid grid-cols-2 gap-6">
-          {renderLineup(0, "left")}
-          {renderLineup(1, "right")}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="order-1 md:order-none">
+            {renderLineup(0, "center")}
+          </div>
+          <div className="order-2 md:order-none">
+            {renderLineup(1, "center")}
+          </div>
         </div>
       </div>
 
