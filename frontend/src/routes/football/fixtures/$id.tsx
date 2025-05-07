@@ -87,16 +87,11 @@ function FootballFixture() {
     }
   };
 
-  const renderLineup = (
-    teamIndex: number,
-    alignment: "left" | "right" | "center"
-  ) => {
+  const renderLineup = (teamIndex: number) => {
     const team = lineups[teamIndex];
     return (
       <div className="space-y-4">
-        <h3
-          className={`text-sm font-semibold sm:text-base md:text-xl text-${alignment}`}
-        >
+        <h3 className="text-center text-sm font-semibold sm:text-base md:text-xl">
           {team.team.name} Starting XI
         </h3>
         {team.startXI.map(({ player }: { player: any }) => (
@@ -202,12 +197,8 @@ function FootballFixture() {
         <SectionHeader title="Lineups" svgName="lineup" />
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="order-1 md:order-none">
-            {renderLineup(0, "center")}
-          </div>
-          <div className="order-2 md:order-none">
-            {renderLineup(1, "center")}
-          </div>
+          <div className="order-1 md:order-none">{renderLineup(0)}</div>
+          <div className="order-2 md:order-none">{renderLineup(1)}</div>
         </div>
       </div>
 
