@@ -34,28 +34,28 @@ export const FootballFixtureCards = ({
       <Card key={id}>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
-            <div className="flex w-1/3 flex-col items-center text-center">
+            <div className="flex w-full flex-col items-center text-center">
               <img
                 src={homeTeamLogo}
                 alt={`${homeTeamName} logo`}
-                className="mb-2 h-10 w-10 object-contain"
+                className="mx-auto mb-2 h-10 w-10 object-contain"
               />
-              <span className="mt-2 text-sm">{homeTeamName}</span>
-              <span className="mt-2 text-base text-red-700">
+              <span className="mt-2 text-sm font-bold">{homeTeamName}</span>
+              <span className="mt-2 text-base font-bold text-red-700">
                 {homeTeamScore}
               </span>
             </div>
 
             <span className="mx-4 text-lg font-bold">vs</span>
 
-            <div className="flex w-1/3 flex-col items-center text-center">
+            <div className="flex w-full flex-col items-center text-center">
               <img
                 src={awayTeamLogo}
                 alt={`${awayTeamName} logo`}
-                className="mb-2 h-10 w-10 object-contain"
+                className="mx-auto mb-2 h-10 w-10 object-contain"
               />
-              <span className="mt-2 text-sm">{awayTeamName}</span>
-              <span className="mt-2 text-base text-red-700">
+              <span className="mt-2 text-sm font-bold">{awayTeamName}</span>
+              <span className="mt-2 text-base font-bold text-red-700">
                 {awayTeamScore}
               </span>
             </div>
