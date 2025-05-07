@@ -1,8 +1,16 @@
 import { FootballFixtureCards } from "@/components/FootballFixtureCards/FootballFixtureCards";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationNext
+} from "@/components/ui/pagination";
 import { useGetRequest } from "@/hooks/useGetRequest";
 import { FootballFixtures } from "@/types/football/football";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { AxiosHeaders } from "axios";
+import { useState } from "react";
 
 export const Route = createLazyFileRoute("/football/fixtures/")({
   component: FootballComponent
@@ -18,6 +26,10 @@ const options = {
 
 function FootballComponent() {
   const axiosHeaders = new AxiosHeaders(options.headers);
+
+  const itemsPerPage = 9;
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(itemsPerPage);
 
   const { data, error, isPending } = useGetRequest({
     url: options.url,
@@ -40,22 +52,56 @@ function FootballComponent() {
 
   return (
     <>
-      <div className="mb-6 grid grid-cols-3 gap-4">
-        {footballFixtures?.map((fixture: FootballFixtures) => (
-          <FootballFixtureCards
-            key={`key-${fixture.fixture.id}`}
-            id={fixture.fixture.id}
-            homeTeamName={fixture.teams.home.name}
-            homeTeamLogo={fixture.teams.home.logo}
-            homeTeamScore={fixture.score.fulltime.home}
-            awayTeamName={fixture.teams.away.name}
-            awayTeamLogo={fixture.teams.away.logo}
-            awayTeamScore={fixture.score.fulltime.away}
-            date={fixture.fixture.date}
-            params={fixture.fixture.id}
-          />
-        ))}
+      <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {footballFixtures
+          .slice(startIndex, endIndex)
+          .map((fixture: FootballFixtures) => (
+            <FootballFixtureCards
+              key={`key-${fixture.fixture.id}`}
+              id={fixture.fixture.id}
+              homeTeamName={fixture.teams.home.name}
+              homeTeamLogo={fixture.teams.home.logo}
+              homeTeamScore={fixture.score.fulltime.home}
+              awayTeamName={fixture.teams.away.name}
+              awayTeamLogo={fixture.teams.away.logo}
+              awayTeamScore={fixture.score.fulltime.away}
+              date={fixture.fixture.date}
+              params={fixture.fixture.id}
+            />
+          ))}
       </div>
+
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              className={
+                startIndex === 0
+                  ? "pointer-events-none opacity-50"
+                  : "cursor-pointer"
+              }
+              onClick={() => {
+                setStartIndex(startIndex - itemsPerPage);
+                setEndIndex(endIndex - itemsPerPage);
+              }}
+            />
+          </PaginationItem>
+
+          <PaginationItem>
+            <PaginationNext
+              className={
+                endIndex === 100
+                  ? "pointer-events-none opacity-50"
+                  : "cursor-pointer"
+              }
+              onClick={() => {
+                setStartIndex(startIndex + itemsPerPage);
+                setEndIndex(endIndex + itemsPerPage);
+              }}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </>
   );
 }
