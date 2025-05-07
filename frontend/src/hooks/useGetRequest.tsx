@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 interface UseGetRequestOptions {
   url: string;
-  queryKey: string;
+  queryKey: string | (string | number)[];
   header?: AxiosHeaders;
   staleTime?: number;
   gcTime?: number;
@@ -22,7 +22,7 @@ export const useGetRequest = ({
   };
 
   const { data, error, isPending } = useQuery({
-    queryKey: [queryKey],
+    queryKey: Array.isArray(queryKey) ? queryKey : [queryKey],
     queryFn: getData,
     staleTime: staleTime || 0,
     gcTime: gcTime || 1000 * 60 * 5
