@@ -5,6 +5,7 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Link } from "@tanstack/react-router";
+import { getScoreColor } from "../Common/GetScoreColor";
 
 interface FootballFixtureCardProps {
   id: number;
@@ -29,6 +30,9 @@ export const FootballFixtureCards = ({
   date,
   params
 }: FootballFixtureCardProps) => {
+  const isTie = homeTeamScore === awayTeamScore;
+  const isHomeWinner = homeTeamScore > awayTeamScore;
+
   return (
     <Link to="/football/fixtures/$id" params={{ id: params.toString() }}>
       <Card key={id}>
@@ -41,7 +45,9 @@ export const FootballFixtureCards = ({
                 className="mx-auto mb-2 h-10 w-10 object-contain"
               />
               <span className="mt-2 text-sm font-bold">{homeTeamName}</span>
-              <span className="mt-2 text-base font-bold text-red-700">
+              <span
+                className={`${getScoreColor(true, isHomeWinner, isTie)} mt-2 text-base font-bold`}
+              >
                 {homeTeamScore}
               </span>
             </div>
@@ -55,7 +61,9 @@ export const FootballFixtureCards = ({
                 className="mx-auto mb-2 h-10 w-10 object-contain"
               />
               <span className="mt-2 text-sm font-bold">{awayTeamName}</span>
-              <span className="mt-2 text-base font-bold text-red-700">
+              <span
+                className={`${getScoreColor(false, isHomeWinner, isTie)} mt-2 text-base font-bold`}
+              >
                 {awayTeamScore}
               </span>
             </div>
