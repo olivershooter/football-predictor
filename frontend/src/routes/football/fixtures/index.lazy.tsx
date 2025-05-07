@@ -86,10 +86,6 @@ function FootballComponent() {
     setEndIndex(itemsPerPage);
   }, [selectedLeagueId, selectedSeason, searchQuery]);
 
-  useEffect(() => {
-    console.log("Fetching data for:", selectedLeagueId, selectedSeason);
-  }, [selectedLeagueId, selectedSeason]);
-
   if (error) {
     return <div>Error loading fixtures: {error?.message}</div>;
   }
