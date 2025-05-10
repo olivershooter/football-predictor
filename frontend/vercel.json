@@ -1,3 +1,6 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "routes": [
+    { "src": "/api/football", "dest": "https://v3.football.api-sports.io" }
+  ]
 }
