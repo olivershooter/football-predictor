@@ -12,7 +12,7 @@ export const Route = createRootRoute({
       <NavigationMenu className="h-fit p-4">
         <NavigationMenuList className="flex items-center gap-4">
           <NavigationMenuItem>
-            <h1 className="text-md font-bold">Football API</h1>
+            <h1 className="text-md font-bold">Football Stats</h1>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link
