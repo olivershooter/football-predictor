@@ -1,7 +1,1 @@
-[[redirects]]
-  from = "/api/football/*"
-  to = "https://v3.football.api-sports.io"
-  status = 200
-  force = true
-  [functions]
-    node_bundler = "esbuild"
+/api/football/*  https://v3.football.api-sports.io/:splat  200
