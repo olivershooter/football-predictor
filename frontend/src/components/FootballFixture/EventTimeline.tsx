@@ -92,7 +92,7 @@ export const EventTimeline = ({ events }: EventTimelineProps) => {
 			<div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center space-x-2">
 				{Array.from({ length: totalItems }).map((_, index) => (
 					<button
-						key={`${index}${++1}`}
+						key={`${index}${+1}`}
 						onClick={() => scrollToIndex(index)}
 						className={`h-3 w-3 rounded-full ${
 							currentIndex === index ? "bg-black" : "bg-gray-300"
