@@ -1,2 +1,4 @@
 [[redirects]]
-    /api/football/*  https://v3.football.api-sports.io/:splat  200
+  from = "/api/football/*"
+  to = "https://v3.football.api-sports.io"
+  status = 200
