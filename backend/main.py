@@ -48,6 +48,10 @@ async def make_api_request(params: dict):
                 detail=f"Internal server error: {str(e)}"
             )
 
+@app.get("/")
+async def root():
+    return {"message": "Hello, world!"}
+
 @app.get("/api/football/fixtures")
 async def get_fixtures(
     request: Request,
