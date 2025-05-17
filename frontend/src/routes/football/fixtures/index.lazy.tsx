@@ -69,7 +69,7 @@ function FootballComponent() {
 			? `https://v3.football.api-sports.io/fixtures?league=${selectedLeagueId}&season=${selectedSeason}`
 			: `/api/football/fixtures?league=${selectedLeagueId}&season=${selectedSeason}`,
 		headers: {
-			"x-rapidapi-key": import.meta.env.VITE_FOOTBALL_API_KEY,
+			"x-rapidapi-key": import.meta.env.FOOTBALL_API,
 			"x-rapidapi-host": "v3.football.api-sports.io",
 		},
 	};
