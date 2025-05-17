@@ -12,26 +12,26 @@ const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
 
 const persister = createSyncStoragePersister({
-  storage: window.localStorage
+	storage: window.localStorage,
 });
 
 declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
+	interface Register {
+		router: typeof router;
+	}
 }
 
 const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <StrictMode>
-      <PersistQueryClientProvider
-        client={queryClient}
-        persistOptions={{ persister }}
-      >
-        <RouterProvider router={router} />
-      </PersistQueryClientProvider>
-    </StrictMode>
-  );
+	const root = ReactDOM.createRoot(rootElement);
+	root.render(
+		<StrictMode>
+			<PersistQueryClientProvider
+				client={queryClient}
+				persistOptions={{ persister }}
+			>
+				<RouterProvider router={router} />
+			</PersistQueryClientProvider>
+		</StrictMode>,
+	);
 }
