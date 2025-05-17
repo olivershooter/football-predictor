@@ -15,9 +15,9 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api/football": {
-				target: "https://v3.football.api-sports.io",
+				target: "http://localhost:8000",
 				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/api\/football/, ""),
+				rewrite: (path) => path.replace(/^\/api\/football/, "/api/football"),
 			},
 		},
 	},

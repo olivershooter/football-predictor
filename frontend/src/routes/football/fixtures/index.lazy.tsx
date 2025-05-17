@@ -24,7 +24,6 @@ import {
 import { useGetRequest } from "@/hooks/useGetRequest";
 import type { FootballFixtures } from "@/types/football/football";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { AxiosHeaders } from "axios";
 import { ChevronsUpDown, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -66,20 +65,13 @@ function FootballComponent() {
 
 	const API_OPTIONS = {
 		url: import.meta.env.PROD
-			? `https://v3.football.api-sports.io/fixtures?league=${selectedLeagueId}&season=${selectedSeason}`
-			: `/api/football/fixtures?league=${selectedLeagueId}&season=${selectedSeason}`,
-		headers: {
-			"x-rapidapi-key": import.meta.env.FOOTBALL_API,
-			"x-rapidapi-host": "v3.football.api-sports.io",
-		},
+			? "https://your-backend-domain.com/api/football/fixtures"
+			: "/api/football/fixtures",
 	};
 
-	const axiosHeaders = new AxiosHeaders(API_OPTIONS.headers);
-
 	const { data, error, isPending } = useGetRequest({
-		url: API_OPTIONS.url,
+		url: `${API_OPTIONS.url}?league=${selectedLeagueId}&season=${selectedSeason}`,
 		queryKey: ["footballFixtures", selectedLeagueId, selectedSeason],
-		header: axiosHeaders,
 		gcTime: 1000 * 60 * 24,
 	});
 

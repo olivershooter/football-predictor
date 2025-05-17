@@ -4,16 +4,11 @@ import { EventTimeline } from "@/components/FootballFixture/EventTimeline";
 import { ShirtSVG } from "@/components/FootballFixture/ShirtSVG";
 import { useGetRequest } from "@/hooks/useGetRequest";
 import { createFileRoute } from "@tanstack/react-router";
-import { AxiosHeaders } from "axios";
 
 const API_OPTIONS = {
 	url: import.meta.env.PROD
-		? "https://v3.football.api-sports.io/fixtures?id="
-		: "/api/football/fixtures?id=",
-	headers: {
-		"x-rapidapi-key": import.meta.env.FOOTBALL_API,
-		"x-rapidapi-host": "v3.football.api-sports.io",
-	},
+		? "https://your-backend-domain.com/api/football/fixtures"
+		: "/api/football/fixtures",
 };
 
 export const Route = createFileRoute("/football/fixtures/$id")({
@@ -22,12 +17,10 @@ export const Route = createFileRoute("/football/fixtures/$id")({
 
 function FootballFixture() {
 	const { id } = Route.useParams();
-	const axiosHeaders = new AxiosHeaders(API_OPTIONS.headers);
 
 	const { data, error, isPending } = useGetRequest({
-		url: `${API_OPTIONS.url}${id}`,
+		url: `${API_OPTIONS.url}?id=${id}`,
 		queryKey: `${id}`,
-		header: axiosHeaders,
 		gcTime: 1000 * 60 * 60 * 24 * 7, // 1 week caching
 	});
 
