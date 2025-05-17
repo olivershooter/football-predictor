@@ -11,7 +11,10 @@ const API_OPTIONS = {
 		? "https://v3.football.api-sports.io/fixtures?id="
 		: "/api/football/fixtures?id=",
 	headers: {
-		"x-rapidapi-key": import.meta.env.VITE_FOOTBALL_API_KEY,
+		"x-rapidapi-key":
+			import.meta.env.VITE_VERCEL_ENV === "production"
+				? import.meta.env.VERCEL_FOOTBALL_API
+				: import.meta.env.VITE_FOOTBALL_API_KEY,
 		"x-rapidapi-host": "v3.football.api-sports.io",
 	},
 };

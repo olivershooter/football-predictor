@@ -1,3 +1,0 @@
-/api/football/*
-  x-rapidapi-key: import.meta.env.VITE_FOOTBALL_API_KEY,
-  x-rapidapi-host: v3.football.api-sports.io,
