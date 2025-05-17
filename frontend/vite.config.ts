@@ -15,8 +15,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api/football": {
-				target:
-					process.env.VITE_API_BASE_URL || "https://v3.football.api-sports.io",
+				target: "https://v3.football.api-sports.io",
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/api\/football/, ""),
 			},
