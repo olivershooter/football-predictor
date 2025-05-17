@@ -74,7 +74,7 @@ function FootballComponent() {
 		},
 	};
 
-	const axiosHeaders = new AxiosHeaders(options.headers);
+	const axiosHeaders = new AxiosHeaders(API_OPTIONS.headers);
 
 	const { data, error, isPending } = useGetRequest({
 		url: API_OPTIONS.url,
