@@ -7,7 +7,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AxiosHeaders } from "axios";
 
 const API_OPTIONS = {
-	url: "/api/football/fixtures?id=",
+	url: import.meta.env.PROD
+		? "https://v3.football.api-sports.io/fixtures?id="
+		: "/api/football/fixtures?id=",
 	headers: {
 		"x-rapidapi-key": import.meta.env.VITE_FOOTBALL_API_KEY,
 		"x-rapidapi-host": "v3.football.api-sports.io",

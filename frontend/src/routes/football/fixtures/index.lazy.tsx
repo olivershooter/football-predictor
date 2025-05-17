@@ -22,7 +22,7 @@ import {
 	CommandList,
 } from "@/components/ui/command";
 import { useGetRequest } from "@/hooks/useGetRequest";
-import { FootballFixtures } from "@/types/football/football";
+import type { FootballFixtures } from "@/types/football/football";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { AxiosHeaders } from "axios";
 import { ChevronsUpDown, Check } from "lucide-react";
@@ -64,8 +64,10 @@ function FootballComponent() {
 	const [startIndex, setStartIndex] = useState(0);
 	const [endIndex, setEndIndex] = useState(itemsPerPage);
 
-	const options = {
-		url: `/api/football/fixtures?league=${selectedLeagueId}&season=${selectedSeason}`,
+	const API_OPTIONS = {
+		url: import.meta.env.PROD
+			? `https://v3.football.api-sports.io/fixtures?league=${selectedLeagueId}&season=${selectedSeason}`
+			: `/api/football/fixtures?league=${selectedLeagueId}&season=${selectedSeason}`,
 		headers: {
 			"x-rapidapi-key": import.meta.env.VITE_FOOTBALL_API_KEY,
 			"x-rapidapi-host": "v3.football.api-sports.io",
@@ -75,7 +77,7 @@ function FootballComponent() {
 	const axiosHeaders = new AxiosHeaders(options.headers);
 
 	const { data, error, isPending } = useGetRequest({
-		url: options.url,
+		url: API_OPTIONS.url,
 		queryKey: ["footballFixtures", selectedLeagueId, selectedSeason],
 		header: axiosHeaders,
 		gcTime: 1000 * 60 * 24,
