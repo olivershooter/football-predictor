@@ -35,7 +35,6 @@ function FootballFixture() {
 	const { teams, league, score, fixture, events, lineups, statistics } =
 		fixtureData;
 
-	console.log(fixtureData);
 	const newDate = new Date(fixture.date).toLocaleString();
 
 	const positionMap: Record<string, string> = {
