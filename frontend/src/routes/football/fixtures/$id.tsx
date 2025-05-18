@@ -6,9 +6,7 @@ import { useGetRequest } from "@/hooks/useGetRequest";
 import { createFileRoute } from "@tanstack/react-router";
 
 const API_OPTIONS = {
-	url: import.meta.env.PROD
-		? `${import.meta.env.VITE_API_URL}/api/football/fixtures`
-		: "/api/football/fixtures",
+	url: "/api/football/fixtures",
 };
 
 export const Route = createFileRoute("/football/fixtures/$id")({

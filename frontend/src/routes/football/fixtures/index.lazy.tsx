@@ -64,9 +64,7 @@ function FootballComponent() {
 	const [endIndex, setEndIndex] = useState(itemsPerPage);
 
 	const API_OPTIONS = {
-		url: import.meta.env.VITE_API_URL
-			? `${import.meta.env.VITE_API_URL}/api/football/fixtures`
-			: "/api/football/fixtures",
+		url: "/api/football/fixtures",
 	};
 
 	const { data, error, isPending } = useGetRequest({
