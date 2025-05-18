@@ -7,7 +7,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 const API_OPTIONS = {
 	url: import.meta.env.PROD
-		? "http://localhost:8000/api/football/fixtures"
+		? `${import.meta.env.VITE_API_URL}/api/football/fixtures`
 		: "/api/football/fixtures",
 };
 
