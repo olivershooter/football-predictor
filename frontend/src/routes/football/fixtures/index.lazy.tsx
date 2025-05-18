@@ -65,7 +65,7 @@ function FootballComponent() {
 
 	const API_OPTIONS = {
 		url: import.meta.env.PROD
-			? "https://your-backend-domain.com/api/football/fixtures"
+			? "http://localhost:8000/api/football/fixtures"
 			: "/api/football/fixtures",
 	};
 
