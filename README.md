@@ -1,4 +1,4 @@
-# Football Predictor - Sports Analytics Platform
+# Football Statistics - Sports Analytics Platform
 
 A modern football statistics platform built with cutting-edge web technologies. Designed to showcase sports analytics capabilities in a portfolio context.
 
