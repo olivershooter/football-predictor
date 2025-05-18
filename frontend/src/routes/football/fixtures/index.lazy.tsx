@@ -64,8 +64,8 @@ function FootballComponent() {
 	const [endIndex, setEndIndex] = useState(itemsPerPage);
 
 	const API_OPTIONS = {
-		url: import.meta.env.PROD
-			? "http://localhost:8000/api/football/fixtures"
+		url: import.meta.env.VITE_API_URL
+			? `${import.meta.env.VITE_API_URL}/api/football/fixtures`
 			: "/api/football/fixtures",
 	};
 
@@ -78,7 +78,7 @@ function FootballComponent() {
 	useEffect(() => {
 		setStartIndex(0);
 		setEndIndex(itemsPerPage);
-	}, [selectedLeagueId, selectedSeason, searchQuery]);
+	}, [selectedLeagueId, selectedSeason]);
 
 	if (error) {
 		return <div>Error loading fixtures: {error?.message}</div>;
@@ -111,9 +111,11 @@ function FootballComponent() {
 					<Popover open={leagueOpen} onOpenChange={setLeagueOpen}>
 						<PopoverTrigger asChild>
 							<Button
+								type="button"
 								variant="outline"
 								role="combobox"
 								aria-expanded={leagueOpen}
+								aria-controls="league-options"
 								className="w-[200px] justify-between"
 							>
 								{selectedLeagueId
@@ -162,9 +164,11 @@ function FootballComponent() {
 					<Popover open={seasonOpen} onOpenChange={setSeasonOpen}>
 						<PopoverTrigger asChild>
 							<Button
+								type="button"
 								variant="outline"
 								role="combobox"
 								aria-expanded={seasonOpen}
+								aria-controls="season-options"
 								className="w-[200px] justify-between"
 							>
 								{selectedSeason

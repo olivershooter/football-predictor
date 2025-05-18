@@ -11,7 +11,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "8001:8000"
+      - "9221:8000"
     networks:
       - app-network
 
